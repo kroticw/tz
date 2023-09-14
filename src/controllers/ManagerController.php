@@ -62,4 +62,8 @@ class ManagerController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionRequests($id){ //action для кнопки 'заявки', перенаправляет на страницу с отсортированными заявками
+        return $this->redirect("index.php?r=request%2Fprevios-request&manager_id=".$id);
+    }
 }

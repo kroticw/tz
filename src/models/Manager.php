@@ -57,4 +57,9 @@ class Manager extends \yii\db\ActiveRecord
             'id'
         );
     }
+
+    public static function IsWorking($id){ //для проверки, работает ли сейчас менеджер
+        $model = self::findOne($id);
+        return $model->is_works;
+    }
 }

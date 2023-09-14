@@ -33,12 +33,15 @@ $config = [
             ],
         ],
         'db' => $db,
+        //с таким отображением url редирект работает криво
+        /* 
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
+        */
     ],
 ];
 

@@ -1,5 +1,7 @@
 <?php
 
+//use app\controllers\ManagerController;
+//use app\models\Request;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -29,6 +31,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at:datetime',
             'name',
             'is_works:boolean',
+            [
+                //['/request/index']
+                'class' => yii\grid\ActionColumn::class,
+                'template' => '{requests}',
+                'buttons' => [
+                    'requests' => function ($url) {
+                        return Html::a('Заявки', $url, [
+                            'class' => 'btn btn-success',
+                        ]);
+                    },
+                ],
+                'contentOptions' => ['style' => 'width:1px'],
+            ],
             [
                 'class' => yii\grid\ActionColumn::class,
                 'template' => '{view}',

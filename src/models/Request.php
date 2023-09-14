@@ -62,4 +62,21 @@ class Request extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Manager::class, ['id' => 'manager_id']);
     }
+
+    public static function getRequests($manager_id){ //функция получения всех записей request, у которых id менеджера равно передаваемому
+        return Request::find()->where(['manager_id' => $manager_id])->all();
+    }
+
+    public function hasDuplic(){  //поиск дубликатов
+        //заносим в duplic предыдущую идентичную заявку заявку, но с другим идентификатором 
+        $duplic = Request::find()->where(['or', ['phone'=>$this->phone], ['email' => $this->email]])->andWhere(['not in', 'id', $this->id])
+                                ->andWhere(['<', 'created_at', $this->created_at])->orderBy(['created_at' => SORT_DESC])->one();
+        if(!is_null($duplic)){ //если найдена, то проверяем на время
+            $days = (strtotime($this->created_at) - strtotime($duplic->created_at)) / 3600 / 24;
+            if($days <= 30)
+                return $duplic;
+        }
+        else
+            return null;
+    }
 }
